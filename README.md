@@ -1,7 +1,7 @@
 # Ahora-Caigo
 Its a game base on the Argentinian trivia show "Ahora caigo", made with SDL2 and C++
 
-![image](https://github.com/PierPlayss/Ahora-Caigo/assets/37775910/526fcd2d-8728-4496-8cbe-25af634face8)
+![ahoracaigo2mp4](https://github.com/PierPlayss/Ahora-Caigo/assets/37775910/cf9638f5-29b8-428f-a584-324d3165cd6b)
 
 ![ahoracaigoss2](https://github.com/PierPlayss/Ahora-Caigo/assets/37775910/8e2a89e3-1668-44df-b2ed-578188dc92fb)
 
