@@ -1,7 +1,7 @@
 #pragma once
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -27,7 +27,7 @@ public:
 	void display();
 	void animation(Entity& p_entity, SDL_Rect &rect, SDL_Rect& pos);
 	void drawText(const char* msg, int x, int y, int r, int g, int b, int a, int size);
-	void textCustom(const char* msg,std::string path, int x, int y, int r, int g, int b, int a, int size,bool center, int xoff, int yoff);
+	void textCustom(const char* msg,std::string path, int x, int y, int r, int g, int b, int a, int size,bool center, int xoff, int yoff, int quality);
 	void textAlignTo(const char* msg, Entity& p_entity, int r, int g, int b, int a, int size, int alignX, int alignY, int xoff, int yoff, std::string path);
 	void backgroundColor(int r, int g, int b,int a);
 	void rectangle(int x, int y, int w, int h, int r, int g, int b, int a,bool filled);
