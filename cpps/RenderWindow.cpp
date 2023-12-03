@@ -1,12 +1,13 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <iostream>
 #include <vector>
 #include <sstream>
 #include <Windows.h>
 #include <fstream>
 #include <string>
+
 
 #include <Windows.h>
 
@@ -55,6 +56,7 @@ void RenderWindow::drawText(const char* msg, int x, int y, int r, int g, int b, 
 	color.a = 255;
 	SDL_Rect rect;
 	surf = TTF_RenderText_Blended(font, msg, color);
+	
 	texture = SDL_CreateTextureFromSurface(renderer, surf);
 	SDL_SetTextureAlphaMod(texture, a);
 	rect.x = x;
@@ -73,7 +75,7 @@ void RenderWindow::drawText(const char* msg, int x, int y, int r, int g, int b, 
 
 }
 
-void RenderWindow::textCustom(const char* msg, std::string path, int x, int y, int r, int g, int b, int a, int size, bool center,int xoff,int yoff) {
+void RenderWindow::textCustom(const char* msg, std::string path, int x, int y, int r, int g, int b, int a, int size, bool center,int xoff,int yoff,int quality) {
 	int width = 1280;
 	int height = 720;
 	SDL_Surface* surf;
@@ -86,7 +88,24 @@ void RenderWindow::textCustom(const char* msg, std::string path, int x, int y, i
 	color.b = b;
 	color.a = a;
 	SDL_Rect rect;
-	surf = TTF_RenderText_Blended(font, msg, color);
+
+
+	//SDL_Color bgColor;
+
+	switch (quality) {
+	case 1: surf = TTF_RenderText_Blended(font, msg, color);
+		break;
+	case 2: surf = TTF_RenderText_Shaded(font, msg, color,color);
+		break;
+	case 0: surf = TTF_RenderText_Solid(font, msg, color);
+		break;
+	default:
+		surf = TTF_RenderText_Solid(font, msg, color);
+
+	}
+	
+
+	
 	texture = SDL_CreateTextureFromSurface(renderer, surf);
 	SDL_SetTextureAlphaMod(texture, a);
 
