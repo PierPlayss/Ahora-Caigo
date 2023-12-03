@@ -1,0 +1,150 @@
+50
+EMPATIA
+Capacidad de entender y compartir los sentimientos de los demas.
+
+ALTRUISMO
+Actitud de preocuparse por el bienestar de los demas.
+
+VOLUNTAD
+Capacidad de tomar decisiones y realizar acciones de manera consciente y libre.
+
+RESILIENCIA
+Capacidad para superar situaciones adversas y recuperarse de ellas.
+
+GRATITUD
+Reconocimiento y aprecio por algo recibido o experimentado.
+
+AUTENTICIDAD
+Caracter de ser genuino y verdadero en acciones y palabras.
+
+CREATIVIDAD
+Capacidad de generar ideas originales y utiles.
+
+GENEROSIDAD
+Actitud de dar y compartir sin esperar nada a cambio.
+
+OPTIMISMO
+Actitud positiva y esperanzadora hacia la vida y las circunstancias.
+
+FORTALEZA
+Capacidad para resistir situaciones dificiles y superar adversidades.
+
+APRENDIZAJE
+Proceso mediante el cual se adquieren conocimientos y habilidades.
+
+INTEGRIDAD
+Coherencia y honestidad en la conducta y valores.
+
+COMUNIDAD
+Conjunto de personas con intereses, caracteristicas o vinculos comunes.
+
+ENTENDIMIENTO
+Comprension y compenetracion con las ideas o sentimientos de otros.
+
+SABIDURIA
+Conocimiento profundo y experiencia para tomar decisiones sabias.
+
+PACIENCIA
+Capacidad de tolerar la espera o las dificultades con tranquilidad.
+
+PERSEVERANCIA
+Mantenimiento de una conducta o esfuerzo constante para alcanzar un objetivo.
+
+RELEVANCIA
+Importancia o significado de algo en relacion con un contexto especifico.
+
+INTEGRIDAD
+Coherencia y honestidad en la conducta y valores.
+
+ENTENDIMIENTO
+Comprension y compenetracion con las ideas o sentimientos de otros.
+
+OPTIMISMO
+Actitud positiva y esperanzadora hacia la vida y las circunstancias.
+
+FLEXIBILIDAD
+Capacidad para adaptarse a situaciones nuevas o cambiantes.
+
+GENEROSIDAD
+Actitud de dar y compartir sin esperar nada a cambio.
+
+GRATITUD
+Reconocimiento y aprecio por algo recibido o experimentado.
+
+CREATIVIDAD
+Capacidad de generar ideas originales y utiles.
+
+COMUNICACION
+Intercambio de informacion y mensajes entre individuos o grupos.
+
+INNOVACION
+Introduccion de novedades o mejoras en cualquier ambito.
+
+ACEPTACION
+Acto de acoger o admitir algo o a alguien.
+
+RESILIENCIA
+Capacidad para superar situaciones adversas y recuperarse de ellas.
+
+TOLERANCIA
+Aceptacion y respeto hacia las opiniones, creencias o practicas diferentes a las propias.
+
+SOLIDARIDAD
+Colaboracion y apoyo mutuo entre individuos en situaciones dificiles.
+
+SOSTENIBILIDAD
+Capacidad de satisfacer las necesidades presentes sin comprometer los recursos futuros.
+
+APRENDIZAJE
+Proceso mediante el cual se adquieren conocimientos y habilidades.
+
+DEMOCRACIA
+Sistema de gobierno en el que el pueblo participa en la toma de decisiones.
+
+CREATIVIDAD
+Capacidad de generar ideas originales y utiles.
+
+JUSTICIA
+Principio etico que busca el equilibrio y el respeto de los derechos.
+
+DIVERSIDAD
+Existencia de variedad y diferencias entre personas, objetos o culturas.
+
+LIBERTAD
+Estado de no estar sometido a coercion o restricciones externas.
+
+AUTOESTIMA
+Valoracion y aprecio que una persona tiene de si misma.
+
+ETICA
+Conjunto de principios y valores que rigen la conducta humana.
+
+EMPATIA
+Capacidad de entender y compartir los sentimientos de los demas.
+
+RESPONSABILIDAD
+Cumplimiento de obligaciones y asuncion de consecuencias por las acciones realizadas.
+
+RESPETO
+Consideracion y reconocimiento hacia uno mismo y hacia los demas.
+
+HONESTIDAD
+Cualidad de actuar con integridad y sinceridad en las acciones y palabras.
+
+COMPASION
+Sentimiento de solidaridad y empatia hacia quienes sufren.
+
+FORTALEZA
+Capacidad para resistir situaciones dificiles y superar adversidades.
+
+PACIENCIA
+Capacidad de tolerar la espera o las dificultades con tranquilidad.
+
+PERSEVERANCIA
+Mantenimiento de una conducta o esfuerzo constante para alcanzar un objetivo.
+
+RELEVANCIA
+Importancia o significado de algo en relacion con un contexto especifico.
+
+INTEGRIDAD
+Coherencia y honestidad en la conducta y valores.

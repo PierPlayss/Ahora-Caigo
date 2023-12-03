@@ -1,0 +1,4 @@
+text-quality: (1=quality 0=performance)
+0
+show-fps:
+1
