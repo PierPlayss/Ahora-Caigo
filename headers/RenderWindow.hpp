@@ -31,7 +31,7 @@ public:
 	void textAlignTo(const char* msg, Entity& p_entity, int r, int g, int b, int a, int size, int alignX, int alignY, int xoff, int yoff, std::string path);
 	void backgroundColor(int r, int g, int b, int a);
 	void rectangle(int x, int y, int w, int h, int r, int g, int b, int a, bool filled);
-	float easyInOut(int startPos, int endPos, float duration, int &currentStep);
+	float easyInOut(int startPos, int endPos, float duration, int& currentStep, bool& animationOver);
 	void ToggleFullscreen();
 
 	/*static SDL_Texture* loadFont(const std::string& font_path, int font_size, const std::string& message_text, const SDL_Color& color);*/
