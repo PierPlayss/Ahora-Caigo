@@ -24,7 +24,7 @@ using namespace std;
 RenderWindow window("Ahora caigo!", 1280, 720);
 //RenderWindow gamesWindow("Games Window", 1000, 500);
 
-const int FPS = 200;
+const int FPS = 60;
 int refreshRate = 1000 / FPS;
 int frame = 0;
 int widthres = 1280;
@@ -90,7 +90,8 @@ void setupPalabra(double& timerdouble, double& timerdif, bool& firstStarted, boo
 	bool& m2, bool& m3,
 	int cantUsado[], int& random, int& palabrasusadas, int& cantLineas,
 	int& numPalabra, string palabras[], int& cantLetras, int& startingpos, bool& roundOver,
-	int turno, int& widthTimer, int& postimer, int& ptimer1, int& ptimer2) {
+	int turno, int& widthTimer, int& postimer, int& ptimer1, int& ptimer2,
+	bool changeturn) {
 
 	cantLetras = 0;
 
@@ -105,10 +106,15 @@ void setupPalabra(double& timerdouble, double& timerdif, bool& firstStarted, boo
 
 	roundOver = false;
 
-	numPalabra = Usado(cantUsado, random, palabrasusadas, cantLineas);
-	ocultadorPalabra(numPalabra, palabras, cantLetras);
+	if (changeturn == true) {
+		numPalabra = Usado(cantUsado, random, palabrasusadas, cantLineas);
+		ocultadorPalabra(numPalabra, palabras, cantLetras);
+		startingpos = ((widthres / 2) - ((widthLetra * palabras[numPalabra].size()) + (widthEspacio * (palabras[numPalabra].size()) - 1)) / 2);
+	}
+	
+	
 
-	startingpos = ((widthres / 2) - ((widthLetra * palabras[numPalabra].size()) + (widthEspacio * (palabras[numPalabra].size()) - 1)) / 2);
+	
 
 
 }
@@ -237,8 +243,7 @@ int main(int argc, char* argv[]) {
 	SDL_Texture* logo1Tex = window.loadTexture("res/gfx/c1.png");
 	SDL_Texture* logo2Tex = window.loadTexture("res/gfx/c2.png");
 	SDL_Texture* notimeTex = window.loadTexture("res/gfx/notime.png");
-	Entity bgEntity(0, 0, 1280, 720, bgTexture);
-	Entity noTime(0, 0, 1280, 720, notimeTex);
+	
 
 
 	//Entity LogicE(0, 50, 1280, 720, brickTexture);
@@ -340,6 +345,23 @@ int main(int argc, char* argv[]) {
 	bool animationLOver = false;
 	bool animationROver = false;
 
+	bool animationEasyIn = true;
+	bool animationEasyOut = false;
+
+	bool lifeIn = true, lifeOut = false;
+	int currentStepLife[2] = { 0,0 };
+	float currentPosLife = 0;
+
+	bool easyInOver = false;
+	bool easyOutOver = false;
+
+	int currentStep[2] = { 0,0 };
+	float currentPos=0;
+
+	//Entity bgEntity(0, 0 + currentPos, 1280, 720, bgTexture);
+	
+
+
 	int turno = 0;
 
 	int opacidadNT = 0;
@@ -352,6 +374,7 @@ int main(int argc, char* argv[]) {
 	string lifesTemp;
 	int lifesTeam1 ;
 	int lifesTeam2 ;
+	int moreLifes = 0;
 	string direc = "res/gfx/Lifeline_000";
 	string direccionpics;
 	//stringstream tr;
@@ -386,14 +409,15 @@ int main(int argc, char* argv[]) {
 	tr >> show_fps;
 	//cout << "show-fps: " << show_fps << endl;
 
-	words.close();
 
 	getline(words, aux);
 	getline(words, aux);
 	tr.clear();
 	tr << aux;
 	tr >> limit_fps;
-	//cout << "limit-fps: " << show_fps << endl;
+
+	
+	//cout << "limit-fps: " << limit_fps << endl;
 
 	words.close();
 
@@ -410,6 +434,10 @@ int main(int argc, char* argv[]) {
 	//setupPalabra(timerdouble,timerdif,firstStarted,stopTimer,modific,m1,m2,m3, cantUsado, random, palabrasusadas, cantLineas, 
 		//			numPalabra, palabras, cantLetras);
 
+
+	unsigned int a = SDL_GetTicks();
+	unsigned int b = SDL_GetTicks();
+	double delta = 0;
 
 
 	while (gameRunning)
@@ -436,8 +464,19 @@ int main(int argc, char* argv[]) {
 			timer.start();
 		}
 
+	//FPS LIMIT
+		a = SDL_GetTicks();
+		delta = a - b;
 
-		//animation
+	if ((delta > refreshRate) or limit_fps==0) {
+
+		//cout << "fps: " << 1000 / delta << std::endl;
+		b = a;
+			
+
+
+
+//animation
 		if (animationR == true) {
 			if (animationROver == false) {
 				moveRight(widthTimer, posTimer, PosTimer1, PosTimer2, animationROver);
@@ -475,6 +514,9 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
+
+	
+
 		window.RenderWindow::clear();
 		// Get our controls and events
 		while (SDL_PollEvent(&event))
@@ -489,19 +531,77 @@ int main(int argc, char* argv[]) {
 
 			}
 			if (event.type == SDL_MOUSEBUTTONUP) {
-
+				
 			}
 
 			if (event.type == SDL_KEYDOWN) {
-				if (event.key.keysym.sym == SDLK_RETURN) {
+				if (event.key.keysym.sym == SDLK_UP) {
+					animationEasyIn = true;
+					easyInOver = false;
+					lifeIn = true;
+					currentStep[0] = 0;
+					currentStepLife[0] = 0;
+					
+				}
+				if (event.key.keysym.sym == SDLK_DOWN) {
+					animationEasyOut = true;
+					easyOutOver = false;
+					currentStep[1] = 0;
+					lifeOut = true;
+					currentStepLife[1] = 0;
 
+				}
+				if (event.key.keysym.sym == SDLK_BACKSPACE) {
 
 					if (gameStarted == false) {
 
 						gameStarted = true;
 
 						setupPalabra(timerdouble, timerdif, firstStarted, stopTimer, modific, m1, m2, m3, cantUsado, random, palabrasusadas, cantLineas,
-							numPalabra, palabras, cantLetras, startingpos, roundOver, turno, widthTimer, posTimer, PosTimer1, PosTimer2);
+							numPalabra, palabras, cantLetras, startingpos, roundOver, turno, widthTimer, posTimer, PosTimer1, PosTimer2, false);
+
+						if (animationOver == true) {
+							startAnimation1 = false;
+							startAnimation2 = true;
+							animationOver = false;
+						}
+
+						if (turno == 0) {
+							animationR = true;
+							animationROver = false;
+							turno = 1;
+						}
+						else {
+							animationL = true;
+							animationLOver = false;
+							turno = 0;
+
+						}
+						//cout << "Turno: " << turno << endl;
+					}
+					else {
+						//roundOver = true;
+						gameStarted = false;
+
+						startAnimation2 = false;
+						startAnimation1 = true;
+
+						timer.stop();
+
+					}
+					//cout << gameStarted << endl;
+
+
+
+				}
+
+				if (event.key.keysym.sym == SDLK_RETURN) {
+					if (gameStarted == false) {
+
+						gameStarted = true;
+
+						setupPalabra(timerdouble, timerdif, firstStarted, stopTimer, modific, m1, m2, m3, cantUsado, random, palabrasusadas, cantLineas,
+							numPalabra, palabras, cantLetras, startingpos, roundOver, turno, widthTimer, posTimer, PosTimer1, PosTimer2, true);
 
 						if (animationOver == true) {
 							startAnimation1 = false;
@@ -532,7 +632,7 @@ int main(int argc, char* argv[]) {
 						timer.stop();
 
 					}
-					cout << gameStarted << endl;
+					//cout << gameStarted << endl;
 
 
 
@@ -541,27 +641,81 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-
-
+		
 		window.backgroundColor(100, 100, 100, 255);
+
+		words.open("lifes.txt");
+		getline(words, lifesTemp);
+		tr.clear();
+		tr << lifesTemp;
+		tr >> lifesTeam1;
+
+		getline(words, lifesTemp);
+		tr.clear();
+		tr << lifesTemp;
+		tr >> lifesTeam2;
+
+		words.close();
+
+		if (lifesTeam1 > lifesTeam2) {
+			moreLifes = lifesTeam1;
+		}
+		else {
+			moreLifes = lifesTeam2;
+		}
+
+		//easyInOut
+
+		if (animationEasyIn == true and easyInOver==false) {
+			currentPos = window.easyInOut(300, 0, 1, currentStep[0],easyInOver);
+			currentPosLife = window.easyInOut(-100 * (moreLifes), 0, 1, currentStepLife[0], easyInOver);
+		
+		}
+		if (animationEasyOut == true and easyOutOver == false) {
+			currentPos = window.easyInOut(0, 300, 0.5, currentStep[1], easyOutOver);
+			currentPosLife = window.easyInOut(0, -100 * (moreLifes), 0.5, currentStepLife[1], easyOutOver);
+
+		}
+		
+
+		SDL_Texture* lifesTex = window.loadTexture(direccionpics.c_str());
+
+
+		for (int i = 0; i < lifesTeam1; i++) {
+			Entity lifes(0 + (105 * i), 0, 90, 90, lifesTex);
+			window.renderCenter(lifes, 1, 100, -300 + (80 * i) + currentPosLife);
+		}
+
+		for (int i = 0; i < lifesTeam2; i++) {
+			Entity lifes(0 + (105 * i), 0, 90, 90, lifesTex);
+			window.renderCenter(lifes, 1, -100, -300 + (80 * i) + currentPosLife);
+		}
+
+
+
+		
+		Entity bgEntity(0,0+currentPos, 1280, 720, bgTexture);
 		window.render(bgEntity, 1);
+		
+		
+		
 
 
-
+		if (quality == 1) {
+			window.textCustom(definiciones[numPalabra].c_str(), "res/fonts/Reforma.ttf", 0, 0, 2, 30, 113, 180, 45, 1, 3, 200+currentPos, 0);
+		}
+		window.textCustom(definiciones[numPalabra].c_str(), "res/fonts/Reforma.ttf", 0, 0, 220, 220, 220, 255, 45, 1, 0, 200+currentPos, quality);
 
 		for (int i = 0; i < palabras[numPalabra].size(); i++) {
-			Entity letrasEnt(startingpos + (45 * i), 610, 40, 60, letrasTexture);
+			Entity letrasEnt(startingpos + (45 * i), 610+currentPos, 40, 60, letrasTexture);
 			window.render(letrasEnt, 1);
 			//cout << " " << palabras[numPalabra][i];
 			tr.clear();
 			tr << palabras[numPalabra][i];
 			tr >> tempString;
-			if (quality == 1) {
-				window.textCustom(definiciones[numPalabra].c_str(), "res/fonts/Reforma.ttf", 0, 0, 2, 30, 113, 180, 45, 1, 3, 200, 0);
-			}			
-			window.textCustom(definiciones[numPalabra].c_str(), "res/fonts/Reforma.ttf", 0, 0, 220, 220, 220, 255, 45, 1, 0, 200,quality);
+
 			if (letrasOcultas[i] == 1 or roundOver == true) {
-				window.textAlignTo(tempString.c_str(), letrasEnt, 13, 29, 157, 255, 50, 1, 1, startingpos + (45 * i), 615, "res/fonts/Dezen.ttf");
+				window.textAlignTo(tempString.c_str(), letrasEnt, 13, 29, 157, 255, 50, 1, 1, startingpos + (45 * i), 615+currentPos, "res/fonts/Dezen.ttf");
 			}
 
 			//window.textCustom("test", "res/fonts/Dezen.ttf", 0 + (50 * i), 50, 255, 255, 255, 255, 30, 0, 0, 0);
@@ -584,7 +738,7 @@ int main(int argc, char* argv[]) {
 			avanzaDerecha = true;
 		}
 		//cout << posxHighlight << endl;
-		Entity hlEntity(posxHighlight, 0, 1280, 720, hlTexture);
+		Entity hlEntity(posxHighlight, 0+currentPos, 1280, 720, hlTexture);
 		window.render(hlEntity, 1);
 
 		if (timerdouble < 15) {
@@ -605,7 +759,7 @@ int main(int argc, char* argv[]) {
 				}
 			}
 			SDL_SetTextureAlphaMod(notimeTex, opacidadNT);
-
+			Entity noTime(0, 0 + currentPos, 1280, 720, notimeTex);
 			window.render(noTime, 1);
 		}
 
@@ -615,7 +769,7 @@ int main(int argc, char* argv[]) {
 		tr << timerdouble;
 		tr >> timerS;
 
-		Entity timerE(posTimer, 435, widthTimer, 63, timerTexture);
+		Entity timerE(posTimer, 435+currentPos, widthTimer, 63, timerTexture);
 		window.render(timerE, 1);
 		if (timerdouble < 20 and m1 == false) {
 			modific += 10;
@@ -630,17 +784,17 @@ int main(int argc, char* argv[]) {
 			m3 = true;
 		}
 		if (gameStarted == true and timerdouble < 29.8) {
-			window.textAlignTo(timerS.c_str(), timerE, 0, 0, 0, 255, 45, 0, 0, PosTimer1 + 55 + modific, 440, "res/fonts/Peloric Bold.ttf");
+			window.textAlignTo(timerS.c_str(), timerE, 0, 0, 0, 255, 45, 0, 0, PosTimer1 + 55 + modific, 440+currentPos, "res/fonts/Peloric Bold.ttf");
 		}
 
 
-		Entity c1Entity(PosTimer1, 423, 93, 93, logo1Tex);
-		Entity c2Entity(PosTimer2, 423, 93, 93, logo2Tex);
+		Entity c1Entity(PosTimer1, 423+currentPos, 93, 93, logo1Tex);
+		Entity c2Entity(PosTimer2, 423+currentPos, 93, 93, logo2Tex);
 		window.render(c1Entity, 1);
 		window.render(c2Entity, 1);
 		//cout<<palabras[numPalabra]<<endl;
 
-		
+
 
 		if (contadorpics >= 61) {
 			contadorpics = 0;
@@ -659,52 +813,30 @@ int main(int argc, char* argv[]) {
 		tr << ".png";
 		tr >> direccionpics;
 
-		contadorpics++;
-
-		SDL_Texture* lifesTex = window.loadTexture(direccionpics.c_str());
-
-		words.open("lifes.txt");
-		getline(words,lifesTemp);
-		tr.clear();
-		tr << lifesTemp;
-		tr >> lifesTeam1;
-
-		getline(words, lifesTemp);
-		tr.clear();
-		tr << lifesTemp;
-		tr >> lifesTeam2;
-
-		words.close();
-		
-
-
-		for (int i = 0; i < lifesTeam1; i++) {
-			Entity lifes(0 + (105 * i), 0, 110, 110, lifesTex);
-			window.renderCenter(lifes, 1, 100 + (105 * i), -300 );
+		if (frame % 2 == 0) {
+			contadorpics++;
 		}
-
-		for (int i = 0; i < lifesTeam2; i++) {
-			Entity lifes(0 + (105 * i), 0, 110, 110, lifesTex);
-			window.renderCenter(lifes, 1, -135 - (105 * i), -300);
-		}
-
-		
 		
 
 
-		
 
 
-	
-		
+
+
+
+
+
+
+
+
 		fps_cont++;
-		frame_seconds=frameTimer.elapsedSeconds();
-		
+		frame_seconds = frameTimer.elapsedSeconds();
+
 		if (frame_seconds >= 1) {
-			
+
 			tr.clear();
 			tr << fps_cont;
-			
+
 			tr >> str_fps;
 
 			fps_cont = 0;
@@ -714,16 +846,16 @@ int main(int argc, char* argv[]) {
 		}
 
 		if (show_fps == 1) {
-			window.textCustom(str_fps.c_str(), "res/fonts/kanit.otf", 1215, 0, 255, 255, 255, 255, 30,0,0,0,0);
+			window.textCustom(str_fps.c_str(), "res/fonts/kanit.otf", 1215, 0, 255, 255, 255, 255, 30, 0, 0, 0, 0);
 		}
-		
+
 
 
 		window.display();
-
-		if (limit_fps == 1) {
+		//Sleep(refreshRate);
+		/*if (limit_fps == 1) {
 			Sleep(refreshRate);
-		}
+		}*/
 		if (frame == FPS) {
 			frame = 0;
 		}
@@ -731,7 +863,7 @@ int main(int argc, char* argv[]) {
 
 		SDL_DestroyTexture(lifesTex);
 
-
+	   }
 	}
 
 	window.cleanUp();

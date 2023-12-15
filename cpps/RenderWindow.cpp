@@ -439,7 +439,7 @@ void RenderWindow::rectangle(int x, int y, int w, int h, int r, int g, int b, in
 
 
 }
-float RenderWindow::easyInOut(int startPos, int endPos, float duration, int &currentStep) {
+float RenderWindow::easyInOut(int startPos, int endPos, float duration, int& currentStep, bool &animationOver) {
 
 	//float startPos = -90, endPos = 200;
 	//float currentPos = startPos;
@@ -471,6 +471,9 @@ float RenderWindow::easyInOut(int startPos, int endPos, float duration, int &cur
 
 		currentStep++;
 		return change;
+	}
+	else {
+		animationOver = true;
 	}
 
 }
